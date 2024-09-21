@@ -3,8 +3,10 @@ from models import db, User
 from config import ApplicationConfig
 from flask_bcrypt import Bcrypt
 from flask_session import Session
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 app.config.from_object(ApplicationConfig)
 
 bcrypt = Bcrypt(app) 
