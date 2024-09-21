@@ -19,7 +19,7 @@ const NotFound: React.FC = () => {
         </p>
         <a
           href="/"
-          className="mt-6 text-indigo-600 hover:text-indigo-500 font-semibold text-sm"
+          className="mt-6 text-theme-colour hover:text-theme-hover-colour font-semibold text-sm"
         >
           Go back to the homepage
         </a>
