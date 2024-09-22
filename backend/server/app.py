@@ -26,7 +26,7 @@ def get_current_user():
     user = User.query.filter_by(id=user_id).first()
     return jsonify({
         "id": user.id,
-        "email": user.email
+        "email": user.email,
     })
 
 @app.route("/register", methods=["POST"])
@@ -63,11 +63,14 @@ def login_user():
         return jsonify({"error": "Unauthorized"}), 401
     
     session["user_id"] = user.id
-
+    session.modified = True
+    session.permanent = True
+    
     return jsonify({
         "id": user.id,
         "email": user.email
     })
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, ssl_context=('certificates/server.crt', 'certificates/server.key'))
+
