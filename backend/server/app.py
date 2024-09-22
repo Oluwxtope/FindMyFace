@@ -71,6 +71,14 @@ def login_user():
         "email": user.email
     })
 
+@app.route("/logout", methods=["POST"])
+def logout_user():
+    session.pop('user_id')
+
+    return jsonify({
+        "message": "Logged out"
+    })
+
 if __name__ == "__main__":
     app.run(debug=True, ssl_context=('certificates/server.crt', 'certificates/server.key'))
 

@@ -3,6 +3,7 @@ import { User } from "../types/User";
 import currentUser from "../api/services/CurrentUser";
 import postLogin from "../api/services/Login";
 import Login from "../components/Login";
+import Profile from "../components/Profile";
 
 const Home = () => {
     const [user, setUser] = useState<User | null>(null)
@@ -55,7 +56,7 @@ const Home = () => {
 
     return (
         <>
-            {user != null ? (<h1>User</h1>) :
+            {user != null ? (<Profile user={user} />) :
                 (<Login email={email} password={password} setEmail={setEmail} setPassword={setPassword} loginUser={handleLogin} />)}
         </>
     )
