@@ -8,6 +8,8 @@ import os
 from werkzeug.utils import secure_filename
 import utils
 import sys
+import face_recognition
+import base64
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True, origins=["https://localhost:5173"])
@@ -93,16 +95,44 @@ def upload_photos():
 
     face_download = user_folder_paths["face download"]
     photos_download = user_folder_paths["photos download"]
-    face_upload = user_folder_paths["face upload"]
-    photos_upload = user_folder_paths["photos upload"]
+    # face_upload = user_folder_paths["face upload"]
+    # photos_upload = user_folder_paths["photos upload"]
     for f in face_list:
         filename = secure_filename(f.filename)
         f.save(os.path.join(face_download, filename))
     for f in photos_list:
         filename = secure_filename(f.filename)
         f.save(os.path.join(photos_download, filename))
-    return jsonify({
-        "message": "Successfully uploaded"})
+
+    face_image = face_download
+    print(face_image, file=sys.stderr)
+    image_directory = photos_download
+    print(image_directory, file=sys.stderr)
+    matching_images = face_recognition.find_matching_images(face_image, image_directory)
+
+    if matching_images:
+        print("Matching images found:", file=sys.stderr)
+        for path in matching_images:
+            print(path)
+        # Encode images as base64
+        base64_images = []
+        for file_path in matching_images:
+            with open(file_path, "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+                # Get the file extension to determine the MIME type
+                file_extension = file_path.split('.')[-1]
+                base64_images.append({
+                    "data": encoded_string,
+                    "type": file_extension
+                })
+
+        return jsonify({"images": base64_images})
+    else:
+        print("No matching images found.")
+        return jsonify({
+        "message": "You're not in any images!"})
+        
+    
 
 if __name__ == "__main__":
     app.run(debug=True, ssl_context=('certificates/server.crt', 'certificates/server.key'))

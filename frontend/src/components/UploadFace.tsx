@@ -15,6 +15,7 @@ const UploadFace = ({ handleFaceChange, handleFaceUpload }: UploadFaceProps) => 
                 type="file"
                 accept=".jpg,.jpeg,.png,.bmp,.tiff,.webp"
                 onChange={handleFaceChange}
+                multiple
                 className="mb-4"
             />
             <button

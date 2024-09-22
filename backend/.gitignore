@@ -4,3 +4,4 @@ server/__pycache__
 instance/
 certificates/server*
 server/assets/**
+server/face_recognition/__pycache__

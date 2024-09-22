@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import postFaceRecognition from "../api/services/FaceRecognition.ts";
 
 type FaceRecognitionProps = {
-    selectedFace: File | null,
+    selectedFace: FileList | null,
     selectedPhotos: FileList | null
 }
 
@@ -20,9 +20,14 @@ const FaceRecognition = ({ selectedFace, selectedPhotos }: FaceRecognitionProps)
 
     const handleFaceRecognition = () => {
         const data = new FormData();
+
+        let listOfFaces: File[] = []
         if (selectedFace) {
-            data.append('face', selectedFace);
+            listOfFaces = filesList(selectedFace);
         }
+        listOfFaces.forEach((face: File) => {
+            data.append('face', face);
+        })
 
         let listOfPhotos: File[] = []
         if (selectedPhotos) {

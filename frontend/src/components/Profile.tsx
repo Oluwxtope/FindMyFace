@@ -11,7 +11,7 @@ type ProfileProps = {
 
 const Profile = ({ user }: ProfileProps) => {
 
-    const [selectedFace, setSelectedFace] = useState<File | null>(null);
+    const [selectedFace, setSelectedFace] = useState<FileList | null>(null);
     const [faceUploaded, setFaceUploaded] = useState<boolean>(false);
     const [selectedPhotos, setSelectedPhotos] = useState<FileList | null>(null);
     const [photosUploaded, setPhotosUploaded] = useState<boolean>(false);
@@ -33,7 +33,7 @@ const Profile = ({ user }: ProfileProps) => {
 
     const handleFaceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
-            setSelectedFace(event.target.files[0])
+            setSelectedFace(event.target.files)
         }
     };
 
