@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import postFaceRecognition from "../api/services/FaceRecognition.ts";
+import { Base64Image } from "../types/Base64Image.ts";
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
 
 type FaceRecognitionProps = {
     selectedFace: FileList | null,
@@ -8,6 +11,7 @@ type FaceRecognitionProps = {
 
 const FaceRecognition = ({ selectedFace, selectedPhotos }: FaceRecognitionProps) => {
     const [submitFaceRecognition, setSubmitFaceRecognition] = useState<boolean>(false)
+    const [base64Images, setBase64Images] = useState<Base64Image[]>([]);
 
     useEffect(() => {
         handleFaceRecognition();
@@ -18,43 +22,69 @@ const FaceRecognition = ({ selectedFace, selectedPhotos }: FaceRecognitionProps)
         return files;
     };
 
+    const handleDownloadImages = () => {
+        const zip = new JSZip();
+        console.log(base64Images);
+        base64Images.forEach((image, index) => {
+            const fileName = `image_${index + 1}.${image.type}`; // Use the format from the server
+            zip.file(fileName, image.data, { base64: true });
+        });
+
+        zip.generateAsync({ type: 'blob' }).then((content) => {
+            saveAs(content, 'images.zip');
+        });
+    };
+
     const handleFaceRecognition = () => {
         const data = new FormData();
 
-        let listOfFaces: File[] = []
         if (selectedFace) {
-            listOfFaces = filesList(selectedFace);
+            filesList(selectedFace).forEach((face: File) => {
+                data.append('face', face);
+            });
         }
-        listOfFaces.forEach((face: File) => {
-            data.append('face', face);
-        })
 
-        let listOfPhotos: File[] = []
         if (selectedPhotos) {
-            listOfPhotos = filesList(selectedPhotos);
+            filesList(selectedPhotos).forEach((photo: File) => {
+                data.append('photos', photo);
+            });
         }
-        listOfPhotos.forEach((photos: File) => {
-            data.append('photos', photos);
-        })
-
-        console.log(data);
 
         postFaceRecognition(data)
             .then((res) => {
-                console.log(res);
                 setSubmitFaceRecognition(true);
+                console.log(res)
+                setBase64Images(res.data.images);
             })
             .catch((err) => {
                 console.log(err);
-            })
+            });
     };
 
     return (
         <>
             {
                 submitFaceRecognition ? (
-                    <h1>
-                    </h1 >
+                    base64Images ? (
+                        <div className="flex-grow flex flex-col items-center justify-center mt-16 p-6 relative">
+                            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                                You've been found in {base64Images.length} images!
+                            </h2>
+                            <p className="text-gray-600 mb-6 text-center">
+                                The images are ready to be downloaded. Click the button below to download.
+                            </p>
+                            <button
+                                onClick={handleDownloadImages}
+                                className="bg-tertiary text-white px-6 py-3 rounded-md hover:bg-teri focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50"
+                            >
+                                Download Images
+                            </button>
+                        </div>
+                    ) : (<div className="flex-grow flex flex-col items-center justify-center mt-16 p-6 relative">
+                        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                            You've been found in 0 images!
+                        </h2>
+                    </div>)
 
                 ) : (
 

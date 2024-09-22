@@ -10,7 +10,7 @@ type LoginProps = {
 
 const Login = ({ email, password, setEmail, setPassword, loginUser }: LoginProps) => {
     return (
-        <>
+        <div className="flex flex-col justify-center min-h-screen bg-gray-50">
             <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
                 <h1 className="text-5xl font-extrabold text-secondary mb-8">FindMyFace</h1>
                 <img
@@ -81,7 +81,7 @@ const Login = ({ email, password, setEmail, setPassword, loginUser }: LoginProps
                     </a>
                 </p>
             </div>
-        </>
+        </div>
     )
 }
 
