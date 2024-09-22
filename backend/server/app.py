@@ -4,6 +4,8 @@ from config import ApplicationConfig
 from flask_bcrypt import Bcrypt
 from flask_session import Session
 from flask_cors import CORS
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -78,6 +80,21 @@ def logout_user():
     return jsonify({
         "message": "Logged out"
     })
+
+@app.route("/upload", methods=["POST"])
+def upload_photos():
+    face_folder = os.path.abspath(os.path.dirname(__file__)) + '/downloads/face/'
+    photos_folder = os.path.abspath(os.path.dirname(__file__)) + '/downloads/photos/'
+    face_list = request.files.getlist('face')
+    photos_list = request.files.getlist('photos')
+    for f in face_list:
+        filename = secure_filename(f.filename)
+        f.save(os.path.join(face_folder, filename))
+    for f in photos_list:
+        filename = secure_filename(f.filename)
+        f.save(os.path.join(photos_folder, filename))
+    return jsonify({
+        "message": "Successfully uploaded"})
 
 if __name__ == "__main__":
     app.run(debug=True, ssl_context=('certificates/server.crt', 'certificates/server.key'))

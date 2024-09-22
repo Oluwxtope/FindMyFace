@@ -1,4 +1,4 @@
-import postLogout from "../api/services/Logout";
+import postLogout from "../api/services/Logout.ts";
 import { User } from "../types/User";
 import logo from "./../assets/images/logo.png"
 

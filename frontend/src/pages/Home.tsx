@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { User } from "../types/User";
-import currentUser from "../api/services/CurrentUser";
-import postLogin from "../api/services/Login";
+import currentUser from "../api/services/CurrentUser.ts";
+import postLogin from "../api/services/Login.ts";
 import Login from "../components/Login";
 import Profile from "../components/Profile";
 

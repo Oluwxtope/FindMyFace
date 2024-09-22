@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "../types/User";
 import Nav from "./Nav";
 import UploadFace from "./UploadFace";
 import UploadPhotos from "./UploadPhotos";
+import FaceRecognition from "./FaceRecognition";
 
 type ProfileProps = {
     user: User
@@ -15,6 +16,10 @@ const Profile = ({ user }: ProfileProps) => {
     const [selectedPhotos, setSelectedPhotos] = useState<FileList | null>(null);
     const [photosUploaded, setPhotosUploaded] = useState<boolean>(false);
 
+    useEffect(() => {
+
+    }, [faceUploaded, photosUploaded])
+    
     const handleFaceUpload = () => {
         if (selectedFace) {
             // Implement your file upload logic here
@@ -49,11 +54,11 @@ const Profile = ({ user }: ProfileProps) => {
     }
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-50">
+        <div className="flex min-h-screen flex-col bg-gray-50 px-6 py-12 lg:px-8">
             <Nav user={user} />
             {faceUploaded ? (
                 photosUploaded ? (
-                <h1></h1>
+                <FaceRecognition selectedFace={selectedFace} selectedPhotos={selectedPhotos}/>
                 ) : (
                         <UploadPhotos handlePhotosChange={handlePhotosChange} handlePhotosUpload={handlePhotosUpload} setFaceUploaded={setFaceUploaded} />
                 )
