@@ -6,9 +6,11 @@ from flask_session import Session
 from flask_cors import CORS
 import os
 from werkzeug.utils import secure_filename
+import utils
+import sys
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True, origins=["https://localhost:5173"])
 app.config.from_object(ApplicationConfig)
 
 bcrypt = Bcrypt(app) 
@@ -83,16 +85,22 @@ def logout_user():
 
 @app.route("/upload", methods=["POST"])
 def upload_photos():
-    face_folder = os.path.abspath(os.path.dirname(__file__)) + '/downloads/face/'
-    photos_folder = os.path.abspath(os.path.dirname(__file__)) + '/downloads/photos/'
+    user_id = session["user_id"]
     face_list = request.files.getlist('face')
     photos_list = request.files.getlist('photos')
+    user_folder_paths = utils.user_folders(user_id)
+    print(user_folder_paths, file=sys.stderr)
+
+    face_download = user_folder_paths["face download"]
+    photos_download = user_folder_paths["photos download"]
+    face_upload = user_folder_paths["face upload"]
+    photos_upload = user_folder_paths["photos upload"]
     for f in face_list:
         filename = secure_filename(f.filename)
-        f.save(os.path.join(face_folder, filename))
+        f.save(os.path.join(face_download, filename))
     for f in photos_list:
         filename = secure_filename(f.filename)
-        f.save(os.path.join(photos_folder, filename))
+        f.save(os.path.join(photos_download, filename))
     return jsonify({
         "message": "Successfully uploaded"})
 

@@ -3,5 +3,4 @@
 server/__pycache__
 instance/
 certificates/server*
-server/downloads/face/*
-server/downloads/photos/*
+server/assets/**
