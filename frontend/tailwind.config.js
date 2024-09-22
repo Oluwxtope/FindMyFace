@@ -7,8 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        'theme-colour': '#a3cde3',
-        'theme-hover-colour': '#8abbd4'
+        'primary': '#d2d5d8',
+        'primary-highlight': '#bcc0c4',
+        'secondary': '#111d4a',
+        'secondary-highlight': '#0e163b',
+        'tertiary': '#4a90e2',
+        'tertiary-highlight': '#377bc4',
       },
     },
   },
