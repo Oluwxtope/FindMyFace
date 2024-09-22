@@ -24,8 +24,8 @@ const Profile = ({ user }: ProfileProps) => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center">
-                        <img src={logo} alt="FaceBlock Logo" className="w-8 h-8 mr-2" />
-                        <span className="text-xl font-bold text-secondary">FaceBlock</span>
+                        <img src={logo} alt="FindMyFace Logo" className="w-8 h-8 mr-2" />
+                        <span className="text-xl font-bold text-secondary">FindMyFace</span>
                     </div>
                     <div className="flex items-center">
                         <span className="mr-4 text-sm font-medium text-gray-700">Welcome, {user.email}</span>

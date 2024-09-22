@@ -12,9 +12,9 @@ const Login = ({ email, password, setEmail, setPassword, loginUser }: LoginProps
     return (
         <div className="flex min-h-screen flex-col justify-center items-center bg-gray-50 px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-                <h1 className="text-5xl font-extrabold text-secondary mb-8">FaceBlock</h1>
+                <h1 className="text-5xl font-extrabold text-secondary mb-8">FindMyFace</h1>
                 <img
-                    alt="FaceBlock Logo"
+                    alt="FindMyFace Logo"
                     src={logo}
                     className="w-36 h-36 mx-auto mb-8"
                 />

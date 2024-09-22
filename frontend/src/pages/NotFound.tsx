@@ -5,9 +5,9 @@ const NotFound: React.FC = () => {
   return (
     <div className="flex min-h-screen flex-col justify-center items-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">FaceBlock</h1>
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">FindMyFace</h1>
         <img
-          alt="FaceBlock Logo"
+          alt="FindMyFace Logo"
           src={logo}
           className="w-32 h-32"
         />

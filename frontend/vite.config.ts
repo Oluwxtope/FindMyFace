@@ -8,11 +8,11 @@ export default defineConfig({
     react(),
     basicSsl({
       /** name of certification */
-      name: 'faceblock',
+      name: 'FindMyFace',
       /** custom trust domains */
       domains: ['localhost'],
       /** custom certification directory */
-      certDir: '/Users/emmanuel/Desktop/faceblock/backend/certificates/server.crt'
+      certDir: '/Users/emmanuel/Desktop/find-my-face/backend/certificates/server.crt'
     })
   ],
 })
