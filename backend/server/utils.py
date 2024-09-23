@@ -39,3 +39,6 @@ def user_folders(user_id):
         "face upload": set_face_upload_folder_path,
         "photos upload": set_photos_upload_folder_path,
     }
+
+def find_user_folder(user_id):
+    return os.path.abspath(os.path.dirname(__file__)) + '/assets/' + user_id

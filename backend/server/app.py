@@ -10,6 +10,8 @@ import utils
 import sys
 import face_recognition
 import base64
+import shutil
+
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True, origins=["https://localhost:5173"])
@@ -88,6 +90,7 @@ def logout_user():
 @app.route("/upload", methods=["POST"])
 def upload_photos():
     user_id = session["user_id"]
+    user_folder = utils.find_user_folder(user_id)
     face_list = request.files.getlist('face')
     photos_list = request.files.getlist('photos')
     user_folder_paths = utils.user_folders(user_id)
@@ -125,9 +128,10 @@ def upload_photos():
                     "data": encoded_string,
                     "type": file_extension
                 })
-
+        shutil.rmtree(user_folder)
         return jsonify({"images": base64_images})
     else:
+        shutil.rmtree(user_folder)
         print("No matching images found.")
         return jsonify({
         "message": "You're not in any images!"})
