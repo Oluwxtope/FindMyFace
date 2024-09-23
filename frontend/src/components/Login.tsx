@@ -1,14 +1,38 @@
+import { useState } from "react";
 import logo from "./../assets/images/logo.png";
+import postLogin from "../api/services/Login";
 
 type LoginProps = {
     email: string;
     password: string;
     setEmail: (email: string) => void;
     setPassword: (password: string) => void;
-    loginUser: () => void;
 };
 
-const Login = ({ email, password, setEmail, setPassword, loginUser }: LoginProps) => {
+const Login = ({ email, password, setEmail, setPassword }: LoginProps) => {
+    const [error, setError] = useState<boolean>(false)
+
+    const handleLogin = () => {
+        const data = { email, password };
+        console.log(data);
+        postLogin(data)
+            .then((res) => {
+                console.log(res);
+                if (res.status == 200) {
+                    console.log("Logged in")
+                    window.location.href = "/";
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 401) {
+                    alert("Invalid credentials")
+                } else {
+                    console.log(err);
+                    setError(true)
+                }
+            })
+    }
+
     return (
         <div className="flex flex-col justify-center min-h-screen bg-gray-50">
             <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
@@ -63,10 +87,19 @@ const Login = ({ email, password, setEmail, setPassword, loginUser }: LoginProps
                         </div>
                     </div>
 
+                    {error ? (
+                        <div className="mt-5 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <strong className="font-bold"></strong>
+                            <span className="block sm:inline">Something went wrong. Please try again.</span>
+                        </div>
+                    ) : (
+                        <></>
+                    )}
+
                     <div>
                         <button
                             type="button"
-                            onClick={loginUser}
+                            onClick={handleLogin}
                             className="flex w-full justify-center rounded-md bg-tertiary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-tertiary/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary"
                         >
                             Sign in
