@@ -2,12 +2,14 @@ import numpy as np
 import os
 import cv2
 
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
 # Load the pre-trained models for face detection and face recognition
 face_detector = cv2.dnn.readNetFromCaffe(
-    '/Users/emmanuel/Desktop/find-my-face/backend/server/face_recognition_models/deploy.prototxt', 
-    '/Users/emmanuel/Desktop/find-my-face/backend/server/face_recognition_models/res10_300x300_ssd_iter_140000.caffemodel'
+    current_directory + '/face_recognition_models/deploy.prototxt', 
+    current_directory + '/face_recognition_models/res10_300x300_ssd_iter_140000.caffemodel'
 )
-face_recognizer = cv2.dnn.readNetFromTorch('/Users/emmanuel/Desktop/find-my-face/backend/server/face_recognition_models/openface.nn4.small2.v1.t7')
+face_recognizer = cv2.dnn.readNetFromTorch(current_directory + '/face_recognition_models/openface.nn4.small2.v1.t7')
 
 def get_face_embedding(face_image):
     face_blob = cv2.dnn.blobFromImage(face_image, 1.0/255, (96, 96), (0, 0, 0), swapRB=True, crop=False)
