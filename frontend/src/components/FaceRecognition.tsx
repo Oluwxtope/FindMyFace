@@ -84,6 +84,9 @@ const FaceRecognition = ({ selectedFace, selectedPhotos }: FaceRecognitionProps)
                         </div>
                     ) : (<div className="flex-grow flex flex-col items-center justify-center mt-16 p-6 relative">
                         <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                            Where's Waldo? More like where's you??!
+                        </h2>
+                        <h2 className="text-xl font-semibold text-gray-800 mb-4">
                             You've been found in 0 images!
                         </h2>
                     </div>)
