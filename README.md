@@ -1,24 +1,24 @@
 # Find My Face
 
 ## Overview
-Find My Face is a web application designed for facial recognition and photo management. It allows users to upload images and automatically detects and matches faces across various photos using advanced machine learning techniques.
+Find My Face is a web application designed for facial recognition and photo management. It allows users to upload images and automatically detects and matches faces across various photos using advanced machine-learning techniques.
 
 ## Technologies Used
 
-**Backend**
-**Python**: Backend logic and facial recognition.
-**Flask**: RESTful API framework for the backend.
-**OpenCV**: Image processing and facial recognition.
-**Redis**: Caching and session management.
-**OpenSSL**: Secured data transmission with HTTPS.
+### Backend
+- **Python**: Backend logic and facial recognition
+- **Flask**: RESTful API framework for the backend
+- **OpenCV**: Image processing and facial recognition
+- **Redis**: Caching and session management
+- **OpenSSL**: Secured data transmission with HTTPS
 
-**Frontend**
-**React**: Dynamic and interactive user interface.
-**TypeScript**: Type safety in frontend development.
+### Frontend
+- **React**: Dynamic and interactive user interface
+- **TypeScript**: Type safety in frontend development
 
-**Tools**
-**Postman**: API testing and debugging.
-**Git/GitHub**: Version control and repository management.
+### Tools
+- **Postman**: API testing and debugging
+- **Git/GitHub**: Version control and repository management
 
 ## Installation Instructions
 
